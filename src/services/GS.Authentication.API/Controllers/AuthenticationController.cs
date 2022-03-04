@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GS.Authentication.API.Controllers;
 
+[ApiController]
 [Route("api/authentication")]
 public class AuthenticationController : Controller
 {
