@@ -44,7 +44,7 @@ public class AuthenticationController : BaseController
         {
             return CustomResponse(await GenerateToken(userCreate.Email));
         }
-        foreach(var error in result.Errors)
+        foreach (var error in result.Errors)
         {
             AddError(error.Description);
         }
@@ -78,6 +78,15 @@ public class AuthenticationController : BaseController
     {
         var user = await _userManager.FindByEmailAsync(email);
         var claims = await _userManager.GetClaimsAsync(user);
+
+        var identityClaims = await GetUserClaims(claims, user);
+        var encondedToken = EncodeToken(identityClaims);
+
+        return ResponseToken(encondedToken, user, claims);
+    }
+
+    private async Task<ClaimsIdentity> GetUserClaims(ICollection<Claim> claims, IdentityUser user)
+    {
         var userRoles = await _userManager.GetRolesAsync(user);
 
         claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
@@ -90,10 +99,13 @@ public class AuthenticationController : BaseController
         {
             claims.Add(new Claim("role", userRole));
         }
-
         var identityClaims = new ClaimsIdentity();
         identityClaims.AddClaims(claims);
+        return identityClaims;
+    }
 
+    private string EncodeToken(ClaimsIdentity identityClaims)
+    {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSetings.Secret);
 
@@ -105,9 +117,11 @@ public class AuthenticationController : BaseController
             Expires = DateTime.UtcNow.AddHours(_appSetings.ExpiracaoHoras),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         });
+        return tokenHandler.WriteToken(token);
+    }
 
-        var encondedToken = tokenHandler.WriteToken(token);
-
+    private UserResponse ResponseToken(string encondedToken, IdentityUser user, IList<Claim> claims)
+    {
         return new UserResponse
         {
             AccessToken = encondedToken,
