@@ -10,9 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace GS.Authentication.API.Controllers;
 
-[ApiController]
 [Route("api/authentication")]
-public class AuthenticationController : Controller
+public class AuthenticationController : BaseController
 {
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
@@ -31,7 +30,7 @@ public class AuthenticationController : Controller
     [HttpPost("create")]
     public async Task<IActionResult> Create(UserCreate userCreate)
     {
-        if (!ModelState.IsValid) return BadRequest();
+        if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         IdentityUser user = new()
         {
@@ -43,23 +42,36 @@ public class AuthenticationController : Controller
 
         if (result.Succeeded)
         {
-            await _signInManager.SignInAsync(user, isPersistent: false);
-            return Ok(await GenerateToken(userCreate.Email));
+            return CustomResponse(await GenerateToken(userCreate.Email));
         }
-        return BadRequest();
+        foreach(var error in result.Errors)
+        {
+            AddError(error.Description);
+        }
+        return CustomResponse();
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(UserLogin userLogin)
     {
-        if (!ModelState.IsValid) return BadRequest();
-        var result = await _signInManager.PasswordSignInAsync(
-            userLogin.Email, userLogin.Password, isPersistent: false, lockoutOnFailure: true);
+        if (!ModelState.IsValid) return CustomResponse(ModelState);
+        var result = await _signInManager.PasswordSignInAsync(userLogin.Email,
+            userLogin.Password,
+            isPersistent: false,
+            lockoutOnFailure: true);
         if (result.Succeeded)
         {
-            return Ok(await GenerateToken(userLogin.Email));
+            return CustomResponse(await GenerateToken(userLogin.Email));
         }
-        return BadRequest();
+        else if (result.IsLockedOut)
+        {
+            AddError("maximum login attempts exceeded, please wait some minutes");
+        }
+        else
+        {
+            AddError("the username or password is incorrect");
+        }
+        return CustomResponse();
     }
 
     private async Task<UserResponse> GenerateToken(string email)
