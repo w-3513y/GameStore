@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/web/GS.WebApp.MVC/bin/Debug/net6.0/GS.WebApp.MVC.dll",
+            "program": "${workspaceFolder}/src/services/GS.Authentication.API/bin/Debug/net6.0/GS.Authentication.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/web/GS.WebApp.MVC",
+            "cwd": "${workspaceFolder}/src/services/GS.Authentication.API",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
