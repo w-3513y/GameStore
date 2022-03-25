@@ -49,7 +49,7 @@ Others:
 - Jenkins or Travis CI (probably Jenkins, because I never used)
 
 # Authors and acknowledgment
-I'm the one whom is coding, but the knowledgement will come from over the internet
+I'm the one who is coding, but the knowledgement will come from over the internet
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
