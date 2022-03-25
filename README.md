@@ -1,10 +1,10 @@
 # GameStore
 
-Game Store is a project that I'll use as a template to future consults. The idea is create a project that simulate a corporate scenario, but testing new technologies
+Game Store is a project that I'll be using as a template to future consults. The idea is creat a project that simulate a corporative project, but testing new technologies
 
 ## Usage
 
-The flow of the program will be very simple, it will be a Game Storage where you can consult or buy games
+The program's use will be very simple, it will be a Game Storage where you can consult or buy games
 
 ## Installation
 
