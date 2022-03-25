@@ -35,6 +35,7 @@ Microsoft:
 - Razor Page (but in future the idea is change to SPA)
 - git (ok, as you see here)
 - microsoft sql server (ok, using as docker image)
+
 Others:
 - Swagger
 - Docker
