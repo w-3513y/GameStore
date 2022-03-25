@@ -28,7 +28,7 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("signup")]
-    public async Task<IActionResult> Create(UserCreate userCreate)
+    public async Task<IActionResult> SignUp(UserCreate userCreate)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -52,7 +52,7 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("signin")]
-    public async Task<IActionResult> Login(UserLogin userLogin)
+    public async Task<IActionResult> SignIp(UserLogin userLogin)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
         var result = await _signInManager.PasswordSignInAsync(userLogin.Email,
