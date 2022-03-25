@@ -6,5 +6,5 @@ dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet tool install --global dotnet-ef
 -----command to run and create your migration
 dotnet ef migrations add YourMigrationName
------command to create/update your database
+-----command to update your database
 dotnet ef database update

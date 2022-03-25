@@ -27,7 +27,7 @@ public class AuthenticationController : BaseController
         _appSetings = appSettings.Value;
     }
 
-    [HttpPost("create")]
+    [HttpPost("signup")]
     public async Task<IActionResult> Create(UserCreate userCreate)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -51,7 +51,7 @@ public class AuthenticationController : BaseController
         return CustomResponse();
     }
 
-    [HttpPost("login")]
+    [HttpPost("signin")]
     public async Task<IActionResult> Login(UserLogin userLogin)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
