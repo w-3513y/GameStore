@@ -61,5 +61,6 @@ the thing will run depend of what I have to do, somedays I'll rush and others I'
 ## [1.0.0] - 2022-03-25
 ### Added
 - Included a API for user authentication using aspnetcore Identity
+- Included a Development branch
 
 
