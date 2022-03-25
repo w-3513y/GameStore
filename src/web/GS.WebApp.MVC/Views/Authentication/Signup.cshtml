@@ -1,4 +1,4 @@
-@model GS.WebApp.MVC.Models.UserCreate
+@model GS.WebApp.MVC.Models.UserCreateViewModel
 
 @{
     ViewData["Title"] = "Sign Up";
@@ -10,30 +10,34 @@
         <section>
             <form method="post">
                 <h4>Create free Account</h4>
-                <hr>
+                <hr />
                 <div class="form-group">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
+                    <input type="email" asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
+                <br>
                 <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <input type="password" asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <br>
                 <div class="form-group">
                     <label asp-for="PasswordConfirmation"></label>
-                    <input asp-for="PasswordConfirmation" class="form-control" />
+                    <input type="password" asp-for="PasswordConfirmation" class="form-control" />
                     <span asp-validation-for="PasswordConfirmation" class="text-danger"></span>
                 </div>
+                <br>
                 <div class="form-group">
-                    <button type="submit" class="btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
+                <hr>
             </form>
         </section>
     </div>
 </div>
 
 @section Scripts{
-<partial name="_ValidationScriptPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -1,4 +1,4 @@
-@model GS.WebApp.MVC.Models.UserLogin
+﻿@model GS.WebApp.MVC.Models.UserLoginViewModel
 
 @{
     ViewData["Title"] = "Sign In";
@@ -9,31 +9,34 @@
     <div class="col-md-12">
         <section>
             <form method="post">
-                <h4>Inform your email as User</h4>
+                <h4>Welcome back, My Dear!</h4>
                 <hr>
                 <div class="form-group">
                     <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
+                    <input type="email" asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
+                <br>
                 <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <input type="password" asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <br>
                 <div class="form-group">
-                    <button type="submit" class="btn-primary">Log In</button>
+                    <button type="submit" class="btn btn-primary">Log In</button>
                 </div>
                 <div class="form-group">
                     <p>
                         No account? <a asp-action="Signup" asp-controller="Authentication">Create one!</a>
                     </p>
                 </div>
+                <hr>
             </form>
         </section>
     </div>
 </div>
 
 @section Scripts{
-<partial name="_ValidationScriptPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

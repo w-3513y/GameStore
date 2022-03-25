@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using GS.WebApp.MVC.Models;
 
@@ -12,7 +11,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("signup")]
-    public async Task<IActionResult> Signup(UserCreate user)
+    public async Task<IActionResult> Signup(UserCreateViewModel user)
     {
         if (!ModelState.IsValid) return View(user);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
@@ -24,7 +23,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("signin")]
-    public async Task<IActionResult> Signin(UserLogin user)
+    public async Task<IActionResult> Signin(UserLoginViewModel user)
     {
         if (!ModelState.IsValid) return View(user);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
