@@ -9,7 +9,7 @@ public interface IUser
     string GetUserEmail();
     string GetUserToken();
     bool IsAuthenticated();
-    bool HasRole(string role);
+    bool IsInRole(string role);
     IEnumerable<Claim> GetClaims();
     HttpContext GetHttpContext();
 }

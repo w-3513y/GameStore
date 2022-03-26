@@ -23,27 +23,25 @@ public class User : IUser
         return _acessor.HttpContext;
     }
 
-    public string GetUserEmail()
+    public string Email()
     {
         return IsAuthenticated() ?
-            _acessor.HttpContext.User.FindFirstValue(ClaimTypes.Email)
+            _acessor.HttpContext.User.GetUserEmail()
             : string.Empty;
     }
 
-    public Guid GetUserId()
+    public Guid Id()
     {
         return IsAuthenticated() ?
-            Guid.Parse(_acessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier))
-            //Guid.Parse(_acessor.HttpContext.User.GetUserId()) -- this extension method are in UserManager now
+            Guid.Parse(_acessor.HttpContext.User.GetUserId())
             : Guid.Empty;
     }
 
-    public string GetUserToken() => IsAuthenticated()
-        //? _acessor.HttpContext.User.GetUserToken()
-        ? string.Empty
+    public string Token() => IsAuthenticated()
+        ? _acessor.HttpContext.User.GetUserToken()
         : string.Empty;
 
-    public bool HasRole(string role)
+    public bool IsInRole(string role)
     {
         return _acessor.HttpContext.User.IsInRole(role);
     }

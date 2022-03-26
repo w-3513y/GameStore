@@ -11,9 +11,3 @@ AuthenticationException: The remote certificate is invalid because of errors in 
 temporarly solution: ServerCertificateCustomValidationCallback = true
 initial point: understand why libnss3-tools , when trying install, generate an error.
 ________________________________________________________________
-Where? GS.WebApp.MVC.Extensions.User.GetUserToken()
-error:
-'ClaimsPrincipal' does not contain a definition for 'GetUserToken' and no accessible extension method 'GetUserToken' accepting a first argument of type 'ClaimsPrincipal' could be found (are you missing a using directive or an assembly reference?) [GS.WebApp.MVC]csharp(CS1061)
-temporarly solution:
-initial point: see UserManage
-________________________________________________________________
