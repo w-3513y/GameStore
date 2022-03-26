@@ -6,11 +6,11 @@ using GS.WebApp.MVC.Models;
 
 namespace GS.WebApp.MVC.Services;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthService : IAuthService
 {
     private readonly HttpClient _httpClient;
 
-    public AuthenticationService(HttpClient httpClient) => _httpClient = httpClient;
+    public AuthService(HttpClient httpClient) => _httpClient = httpClient;
 
     public async Task<UserResponseViewModel> Signin(UserLoginViewModel user)
     {
