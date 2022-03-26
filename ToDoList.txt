@@ -1,2 +1,18 @@
+############################
 Identity:
 to implement the email sending when option EmailConfirmed = true
+
+############################
+Certificate error:
+to adjust the error on authentication service when try to connect to API:
+AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: PartialChain
+possible solution:
+understand why libnss3-tools , when trying install, generate this error:
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Package libnss3-tools is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+
+E: Package 'libnss3-tools' has no installation candidate

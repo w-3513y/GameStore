@@ -14,6 +14,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<string> Signin(UserLoginViewModel user)
     {
+        //bad solution, better solution - adjust certificate
         HttpClientHandler clientHandler = new HttpClientHandler();
         clientHandler.ServerCertificateCustomValidationCallback =
                 (sender, cert, chain, sslPolicyErrors) => { return true; };
