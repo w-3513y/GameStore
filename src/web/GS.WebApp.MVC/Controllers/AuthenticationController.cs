@@ -4,6 +4,7 @@ using GS.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace GS.WebApp.MVC.Controllers;
 
@@ -23,6 +24,7 @@ public class AuthenticationController : Controller
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signup(user);
+        await Login(response);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
     }
 
@@ -36,6 +38,7 @@ public class AuthenticationController : Controller
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signin(user);
+        await Login(response);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
     }
 
@@ -43,13 +46,28 @@ public class AuthenticationController : Controller
     [Route("signout")]
     public IActionResult Signout() => RedirectToAction(actionName: "Index", controllerName: "Home");
 
-    private async Task Login(UserResponseViewModel user)
+    private async Task Login(UserResponseViewModel response)
     {
+        var token = FormatedToken(response.AccessToken);
+        var claims = new List<Claim>();
+        claims.Add(new Claim(type: "JWT", value: response.AccessToken)); //just to remenber the token
+        claims.AddRange(token.Claims);
+        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        var authproperties = new AuthenticationProperties
+        {
+            ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60),
+            IsPersistent = true
+        };
         await HttpContext.SignInAsync(
             scheme: CookieAuthenticationDefaults.AuthenticationScheme,
-            principal: new ClaimsPrincipal()
+            principal: new ClaimsPrincipal(claimsIdentity),
+            properties: authproperties
         );
+    }
 
+    private static JwtSecurityToken FormatedToken(string jwtToken)
+    {
+        return new JwtSecurityTokenHandler().ReadToken(jwtToken) as JwtSecurityToken;
     }
 
 
