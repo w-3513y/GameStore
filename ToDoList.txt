@@ -16,3 +16,8 @@ This may mean that the package is missing, has been obsoleted, or
 is only available from another source
 
 E: Package 'libnss3-tools' has no installation candidate
+
+############################
+understand this error:
+'ClaimsPrincipal' does not contain a definition for 'GetUserToken' and no accessible extension method 'GetUserToken' accepting a first argument of type 'ClaimsPrincipal' could be found (are you missing a using directive or an assembly reference?) [GS.WebApp.MVC]csharp(CS1061)
+? _acessor.HttpContext.User.GetUserToken()
