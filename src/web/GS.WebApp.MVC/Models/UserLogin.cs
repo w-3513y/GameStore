@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GS.WebApp.MVC.Models;
 
-public class UserLoginViewModel
+public class UserLogin
 {
     [DisplayName("e-mail")]
     [Required(ErrorMessage = "the field {0} is required)")]

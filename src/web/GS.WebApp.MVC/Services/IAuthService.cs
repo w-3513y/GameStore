@@ -4,6 +4,6 @@ namespace GS.WebApp.MVC.Services;
 
 public interface IAuthService 
 {
-    Task<UserResponseViewModel> Signin(UserLoginViewModel user);
-    Task<UserResponseViewModel> Signup(UserCreateViewModel user);
+    Task<UserResponse> Signin(UserLogin user);
+    Task<UserResponse> Signup(UserCreate user);
 }

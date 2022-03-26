@@ -20,7 +20,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("signup")]
-    public async Task<IActionResult> Signup(UserCreateViewModel user)
+    public async Task<IActionResult> Signup(UserCreate user)
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signup(user);
@@ -34,7 +34,7 @@ public class AuthenticationController : Controller
 
     [HttpPost]
     [Route("signin")]
-    public async Task<IActionResult> Signin(UserLoginViewModel user)
+    public async Task<IActionResult> Signin(UserLogin user)
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signin(user);
@@ -46,7 +46,7 @@ public class AuthenticationController : Controller
     [Route("signout")]
     public IActionResult Signout() => RedirectToAction(actionName: "Index", controllerName: "Home");
 
-    private async Task Login(UserResponseViewModel response)
+    private async Task Login(UserResponse response)
     {
         var token = FormatedToken(response.AccessToken);
         var claims = new List<Claim>();

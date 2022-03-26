@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace GS.WebApp.MVC.Models;
 
-public class UserClaimViewModel
+public class UserClaim
 {
     [JsonPropertyName("value")]
     public string Value { get; set; }
