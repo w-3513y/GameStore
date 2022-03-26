@@ -12,7 +12,7 @@ public class AuthenticationService : IAuthenticationService
 
     public AuthenticationService(HttpClient httpClient) => _httpClient = httpClient;
 
-    public async Task<string> Signin(UserLoginViewModel user)
+    public async Task<UserResponseViewModel> Signin(UserLoginViewModel user)
     {
         //bad solution, better solution - adjust certificate
         HttpClientHandler clientHandler = new HttpClientHandler();
@@ -27,10 +27,10 @@ public class AuthenticationService : IAuthenticationService
                                         mediaType: "application/json");
         var response = await client.PostAsync(requestUri: Url.signIn,
             content: content);
-        return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+        return JsonSerializer.Deserialize<UserResponseViewModel>(await response.Content.ReadAsStringAsync());
     }
 
-    public async Task<string> Signup(UserCreateViewModel user)
+    public async Task<UserResponseViewModel> Signup(UserCreateViewModel user)
     {
         HttpClientHandler clientHandler = new HttpClientHandler();
         clientHandler.ServerCertificateCustomValidationCallback =
@@ -44,6 +44,6 @@ public class AuthenticationService : IAuthenticationService
                                         mediaType: "application/json");
         var response = await client.PostAsync(requestUri: Url.signUp,
             content: content);
-        return JsonSerializer.Deserialize<string>(await response.Content.ReadAsStringAsync());
+        return JsonSerializer.Deserialize<UserResponseViewModel>(await response.Content.ReadAsStringAsync());
     }
 }

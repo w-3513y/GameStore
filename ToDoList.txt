@@ -4,7 +4,7 @@ to implement the email sending when option EmailConfirmed = true
 
 ############################
 Certificate error:
-to adjust the error on authentication service when try to connect to API:
+to adjust the error of authentication when try to connect to API:
 AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: PartialChain
 possible solution:
 understand why libnss3-tools , when trying install, generate this error:

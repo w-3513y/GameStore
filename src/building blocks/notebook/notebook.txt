@@ -8,3 +8,7 @@ dotnet tool install --global dotnet-ef
 dotnet ef migrations add YourMigrationName
 -----command to update your database
 dotnet ef database update
+
+-------- user test--------
+user: user@mail.br
+pass: Teste@123
