@@ -1,3 +1,4 @@
+using GS.WebApp.MVC.Extensions;
 using GS.WebApp.MVC.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -8,6 +9,8 @@ public static class DependencyInjectionConfig
     public static void RegisterServices(this IServiceCollection services)
     {
         services.AddHttpClient<IAuthService, AuthService>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddScoped<IUser, User>();
     }
 
 }
