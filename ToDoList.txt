@@ -1,23 +1,19 @@
-############################
-Identity:
+________________________________________________________________
+Where? GS.Authentication.API.Controllers.Authentication
+feature:
 to implement the email sending when option EmailConfirmed = true
-
-############################
-Certificate error:
-to adjust the error of authentication when try to connect to API:
+temporarly solution:
+initial point: had implement on Configuration.IdentityConfig = AddDefaultTokenProviders
+________________________________________________________________
+Where? GS.WebApp.MVC.Services.AuthService.Signin() / Signup()
+error:
 AuthenticationException: The remote certificate is invalid because of errors in the certificate chain: PartialChain
-possible solution:
-understand why libnss3-tools , when trying install, generate this error:
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-Package libnss3-tools is not available, but is referred to by another package.
-This may mean that the package is missing, has been obsoleted, or
-is only available from another source
-
-E: Package 'libnss3-tools' has no installation candidate
-
-############################
-understand this error:
+temporarly solution: ServerCertificateCustomValidationCallback = true
+initial point: understand why libnss3-tools , when trying install, generate an error.
+________________________________________________________________
+Where? GS.WebApp.MVC.Extensions.User.GetUserToken()
+error:
 'ClaimsPrincipal' does not contain a definition for 'GetUserToken' and no accessible extension method 'GetUserToken' accepting a first argument of type 'ClaimsPrincipal' could be found (are you missing a using directive or an assembly reference?) [GS.WebApp.MVC]csharp(CS1061)
-? _acessor.HttpContext.User.GetUserToken()
+temporarly solution:
+initial point: see UserManage
+________________________________________________________________
