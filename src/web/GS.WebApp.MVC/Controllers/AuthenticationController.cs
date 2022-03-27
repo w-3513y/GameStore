@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace GS.WebApp.MVC.Controllers;
 
-public class AuthenticationController : Controller
+public class AuthenticationController : AbstractController
 {
     private readonly IAuthService _service;
 
@@ -24,6 +24,7 @@ public class AuthenticationController : Controller
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signup(user);
+        if (ResponseErrors(response.ResponseResult)) return View(user);
         await Login(response);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
     }
@@ -38,6 +39,10 @@ public class AuthenticationController : Controller
     {
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signin(user);
+        if (ResponseErrors(response.ResponseResult))
+        {
+            return View(user);
+        }
         await Login(response);
         return RedirectToAction(actionName: "Index", controllerName: "Home");
     }

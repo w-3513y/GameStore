@@ -10,4 +10,5 @@ public class UserResponse
     public double ExpiresIn { get; set; }
     [JsonPropertyName("usuarioToken")]
     public UserToken? UserToken { get; set; }
+    public ResponseResult ResponseResult { get; set;  }
 }

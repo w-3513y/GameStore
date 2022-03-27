@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using GS.WebApp.MVC.Consts;
@@ -6,7 +5,7 @@ using GS.WebApp.MVC.Models;
 
 namespace GS.WebApp.MVC.Services;
 
-public class AuthService : IAuthService
+public class AuthService : AbstractService, IAuthService
 {
     private readonly HttpClient _httpClient;
 
@@ -27,6 +26,13 @@ public class AuthService : IAuthService
                                         mediaType: "application/json");
         var response = await client.PostAsync(requestUri: Url.signIn,
             content: content);
+        if (!HandlingResponseErrors(response))
+        {
+            return new UserResponse
+            {
+                ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync())
+            };
+        };
         return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync());
     }
 
@@ -44,6 +50,14 @@ public class AuthService : IAuthService
                                         mediaType: "application/json");
         var response = await client.PostAsync(requestUri: Url.signUp,
             content: content);
+
+        if (!HandlingResponseErrors(response))
+        {
+            return new UserResponse
+            {
+                ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync())
+            };
+        };
         return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync());
     }
 }

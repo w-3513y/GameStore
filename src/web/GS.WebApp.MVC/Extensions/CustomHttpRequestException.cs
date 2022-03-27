@@ -1,4 +1,3 @@
-using System;
 using System.Net;
 
 namespace GS.WebApp.MVC.Extensions;
