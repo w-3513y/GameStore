@@ -49,7 +49,11 @@ public class AuthenticationController : AbstractController
 
     [HttpGet]
     [Route("signout")]
-    public IActionResult Signout() => RedirectToAction(actionName: "Index", controllerName: "Home");
+    public async Task<IActionResult> Signout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction(actionName: "Index", controllerName: "Home");
+    }
 
     private async Task Login(UserResponse response)
     {
