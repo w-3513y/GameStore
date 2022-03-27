@@ -6,13 +6,6 @@ namespace GS.WebApp.MVC.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
         return View();
@@ -23,9 +16,31 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [Route("error/{id:length(3,3)}")]
+    public IActionResult Error(int id)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var modelErro = new ErrorViewModel();
+        modelErro.ErrorCode = id;
+        if (id == 500)
+        {
+            modelErro.Message = "Internal Server Error.";
+            modelErro.Title = "An error ocurred";
+        }
+        else if (id == 404)
+        {
+            modelErro.Message = "Page not Found.";
+            modelErro.Title = "Not Found.";
+        }
+        else if (id == 403)
+        {
+            modelErro.Message = "User don't have access privileges.";
+            modelErro.Title = "Forbiden.";
+        }
+        else
+        {
+            return StatusCode(404);
+        }
+        return View("Error", modelErro);
+
     }
 }
