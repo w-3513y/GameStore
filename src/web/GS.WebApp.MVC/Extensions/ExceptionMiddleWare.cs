@@ -26,7 +26,7 @@ public class ExceptionMiddleWare
     {
         if (exception.statusCode == HttpStatusCode.Unauthorized)
         {
-            context.Response.Redirect(location: "/signin");
+            context.Response.Redirect(location: $"/signin?ReturnUrl={context.Request.Path}");
             return;
         }
         context.Response.StatusCode = (int)exception.statusCode;

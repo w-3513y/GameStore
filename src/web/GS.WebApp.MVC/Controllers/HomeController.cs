@@ -33,7 +33,7 @@ public class HomeController : Controller
         }
         else if (id == 403)
         {
-            modelErro.Message = "User don't have access privileges.";
+            modelErro.Message = "You don't have authorization to view this page.";
             modelErro.Title = "Forbiden.";
         }
         else

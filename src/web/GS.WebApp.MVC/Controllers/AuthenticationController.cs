@@ -31,12 +31,17 @@ public class AuthenticationController : AbstractController
 
     [HttpGet]
     [Route("signin")]
-    public IActionResult Signin() => View();
+    public IActionResult Signin(string returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View();
+    }
 
     [HttpPost]
     [Route("signin")]
-    public async Task<IActionResult> Signin(UserLogin user)
+    public async Task<IActionResult> Signin(UserLogin user, string returnUrl = null)
     {
+        ViewData["ReturnUrl"] = returnUrl;
         if (!ModelState.IsValid) return View(user);
         var response = await _service.Signin(user);
         if (ResponseErrors(response.ResponseResult))
@@ -44,7 +49,8 @@ public class AuthenticationController : AbstractController
             return View(user);
         }
         await Login(response);
-        return RedirectToAction(actionName: "Index", controllerName: "Home");
+        if(string.IsNullOrEmpty(returnUrl)) return RedirectToAction(actionName: "Index", controllerName: "Home");
+        return LocalRedirect(returnUrl);
     }
 
     [HttpGet]
