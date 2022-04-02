@@ -1,14 +1,23 @@
---------this is the command to run sql server as a docker image--------
+-----------------
+Running your database as a Docker image:
 docker run --name containerSQLServer -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=admin123!" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest
---------commands to run migrations on dotnet ef------------------------
-------package necessary to run migrations
+obs: if you image already was build, first of all you need to get it name:
+docker -ps -a
+deocker restart [NAME]
+-----------------
+Package necessary to run the migrations
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 dotnet tool install --global dotnet-ef
------command to run and create your migration
+-----------------
+command to run and create your migration
 dotnet ef migrations add YourMigrationName
------command to update your database
+obs: you need to run this command inside the project where you want to create your migration
+     if the migration is already created go to the next step
+-----------------
+command to update your database
 dotnet ef database update
-
--------- user test--------
+obs: you need to run this command inside the project where your migration was created
+-----------------
+user test
 user: user@mail.br
 pass: Teste@123

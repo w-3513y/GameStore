@@ -7,7 +7,7 @@ public class CustomHttpRequestException : Exception
     public HttpStatusCode statusCode;
 
     public CustomHttpRequestException() {}
-    public CustomHttpRequestException(string message, Exception innerExceotion)
-    : base(message, innerExceotion){}
+    public CustomHttpRequestException(string message, Exception innerException)
+    : base(message, innerException){}
     public CustomHttpRequestException(HttpStatusCode statusCode) => this.statusCode = statusCode;
 }

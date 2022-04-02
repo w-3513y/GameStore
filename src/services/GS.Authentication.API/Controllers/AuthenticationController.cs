@@ -30,7 +30,7 @@ public class AuthenticationController : BaseController
     [HttpPost("signup")]
     public async Task<IActionResult> SignUp(UserCreate userCreate)
     {
-        //return new StatusCodeResult(statusCode: 401); //for test
+        //return new StatusCodeResult(statusCode: 401); //to test
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         IdentityUser user = new()
