@@ -1,6 +1,6 @@
 ﻿@model GS.WebApp.MVC.Models.ErrorViewModel
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = "Bad things happen!";
 }
 @{
     if (Model == null)
@@ -9,6 +9,7 @@
     }
     else
     {
+        ViewData["Title"] = Model.Title;
         <div><h2>@Html.Raw(Model.Message)</h2></div>
     }
 }
