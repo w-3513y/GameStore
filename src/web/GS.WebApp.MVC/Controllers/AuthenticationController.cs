@@ -31,7 +31,7 @@ public class AuthenticationController : AbstractController
 
     [HttpGet]
     [Route("signin")]
-    public IActionResult Signin(string returnUrl = null)
+    public IActionResult Signin(string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View();
@@ -39,7 +39,7 @@ public class AuthenticationController : AbstractController
 
     [HttpPost]
     [Route("signin")]
-    public async Task<IActionResult> Signin(UserLogin user, string returnUrl = null)
+    public async Task<IActionResult> Signin(UserLogin user, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         if (!ModelState.IsValid) return View(user);
@@ -49,7 +49,8 @@ public class AuthenticationController : AbstractController
             return View(user);
         }
         await Login(response);
-        if(string.IsNullOrEmpty(returnUrl)) return RedirectToAction(actionName: "Index", controllerName: "Home");
+        if(string.IsNullOrEmpty(returnUrl))
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         return LocalRedirect(returnUrl);
     }
 
