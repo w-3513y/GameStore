@@ -1,5 +1,3 @@
-using System.Text;
-using System.Text.Json;
 using GS.WebApp.MVC.Consts;
 using GS.WebApp.MVC.Models;
 
@@ -13,41 +11,27 @@ public class AuthService : AbstractService, IAuthService
 
     public async Task<UserResponse> Signin(UserLogin user)
     {
-        //bad solution, better solution - adjust certificate
-        HttpClientHandler clientHandler = new HttpClientHandler();
-        clientHandler.ServerCertificateCustomValidationCallback =
-                (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = TemporarlyHttpClientSolution();
 
-        // Pass the handler to httpclient(from you are calling api)
-        HttpClient client = new HttpClient(clientHandler);
-
-        var content = new StringContent(content: JsonSerializer.Serialize(user),
-                                        encoding: Encoding.UTF8,
-                                        mediaType: "application/json");
+        var content = GetContent(user);
         var response = await client.PostAsync(requestUri: Url.signIn,
             content: content);
         if (!HandlingResponseErrors(response))
         {
             return new UserResponse
             {
-                ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync())
+                ResponseResult = await Deserialize<ResponseResult>(response)
             };
         };
-        return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync());
+        return await Deserialize<UserResponse>(response);
     }
 
     public async Task<UserResponse> Signup(UserCreate user)
     {
-        HttpClientHandler clientHandler = new HttpClientHandler();
-        clientHandler.ServerCertificateCustomValidationCallback =
-                (sender, cert, chain, sslPolicyErrors) => { return true; };
+        HttpClient client = TemporarlyHttpClientSolution();
 
-        // Pass the handler to httpclient(from you are calling api)
-        HttpClient client = new HttpClient(clientHandler);
+        var content = GetContent(user);
 
-        var content = new StringContent(content: JsonSerializer.Serialize(user),
-                                        encoding: Encoding.UTF8,
-                                        mediaType: "application/json");
         var response = await client.PostAsync(requestUri: Url.signUp,
             content: content);
 
@@ -55,9 +39,9 @@ public class AuthService : AbstractService, IAuthService
         {
             return new UserResponse
             {
-                ResponseResult = JsonSerializer.Deserialize<ResponseResult>(await response.Content.ReadAsStringAsync())
+                ResponseResult = await Deserialize<ResponseResult>(response)
             };
         };
-        return JsonSerializer.Deserialize<UserResponse>(await response.Content.ReadAsStringAsync());
+        return await Deserialize<UserResponse>(response);
     }
 }
