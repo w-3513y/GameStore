@@ -29,8 +29,9 @@ here the tecnologies that will be implemented:
 
 Microsoft:
 - dotnet 6.0 and csharp 10 (ok)
-- Entity FrameWorkCore (ok, but maybe to try hard on SQL I switch to Dapper)
+- Entity FrameWorkCore (ok)
 - Identity (ok)
+- .Net Core User Secrets (ok, but it can be better)
 - JWT (implemented)
 - Razor Page (but in future the idea is change to SPA)
 - git (ok, as you see here)
@@ -48,8 +49,14 @@ Others:
 - zabbix (as alternative to datadog, but maybe not)
 - Jenkins or Travis CI (probably Jenkins, because I never used)
 
+the changeLog will follow the pattern: MAJOR.MINOR.PATCH, where:
+ * MAJOR: there is incompabilities with previous version;
+ * MINOR: new functionalities;
+ * PATCH: just bugs fixed;
+
+
 # Authors and acknowledgment
-I'm the one whom is coding, but the knowledgement will come from over the internet
+I'm the one who is coding, but the knowledgement will come from over the internet
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
@@ -58,6 +65,11 @@ I'm the one whom is coding, but the knowledgement will come from over the intern
 the thing will run depend of what I have to do, somedays I'll rush and others I'll slow down the code
 
 # Changelog
+## [2.0.0] - 2022-03-25
+### Added
+- Included a Web API using Razor Pages
+- New names to the authentications endpoints
+- Included a Development branch
 ## [1.0.0] - 2022-03-25
 ### Added
 - Included a API for user authentication using aspnetcore Identity

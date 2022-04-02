@@ -28,8 +28,9 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("signup")]
-    public async Task<IActionResult> Create(UserCreate userCreate)
+    public async Task<IActionResult> SignUp(UserCreate userCreate)
     {
+        //return new StatusCodeResult(statusCode: 401); //to test
         if (!ModelState.IsValid) return CustomResponse(ModelState);
 
         IdentityUser user = new()
@@ -52,7 +53,7 @@ public class AuthenticationController : BaseController
     }
 
     [HttpPost("signin")]
-    public async Task<IActionResult> Login(UserLogin userLogin)
+    public async Task<IActionResult> SignIn(UserLogin userLogin)
     {
         if (!ModelState.IsValid) return CustomResponse(ModelState);
         var result = await _signInManager.PasswordSignInAsync(userLogin.Email,
