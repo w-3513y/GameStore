@@ -8,20 +8,18 @@ namespace GS.WebApp.MVC.Services;
 public class AuthService : AbstractService, IAuthService
 {
     private readonly HttpClient _httpClient;
-    private readonly AppSettings _settings;
 
     public AuthService(HttpClient httpClient, IOptions<AppSettings> settings)
     {
-        _httpClient = httpClient;
-        _settings = settings.Value;
+        //httpClient.BaseAddress = new Uri(settings.Value.URLAuthentication);
+        _httpClient = TemporarlyHttpClientSolution();
+        _httpClient.BaseAddress = new Uri(settings.Value.URLAuthentication);
     }
 
     public async Task<UserResponse> Signin(UserLogin user)
     {
-        HttpClient client = TemporarlyHttpClientSolution();
-
         var content = GetContent(user);
-        var response = await client.PostAsync(requestUri: $"{_settings.URLAuthentication}{EndPoint.signIn}",
+        var response = await _httpClient.PostAsync(requestUri: EndPoint.signIn,
             content: content);
         if (!HandlingResponseErrors(response))
         {
@@ -35,11 +33,9 @@ public class AuthService : AbstractService, IAuthService
 
     public async Task<UserResponse> Signup(UserCreate user)
     {
-        HttpClient client = TemporarlyHttpClientSolution();
-
         var content = GetContent(user);
 
-        var response = await client.PostAsync(requestUri: $"{_settings.URLAuthentication}{EndPoint.signUp}",
+        var response = await _httpClient.PostAsync(requestUri: EndPoint.signUp,
             content: content);
 
         if (!HandlingResponseErrors(response))
