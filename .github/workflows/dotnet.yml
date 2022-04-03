@@ -32,18 +32,18 @@ jobs:
     - name: Restore WebApp.MVC dependencies
       run: dotnet restore ./src/web/GS.WebApp.MVC/
     - name: Build Authentication.API
-      run: dotnet build ./src/services/GS.Authentication.API/ --no-restore
+      run: dotnet build ./src/services/GS.Authentication.API/ --configuration Release --no-restore
     - name: Build Catalog.API
-      run: dotnet build ./src/services/GS.Catalog.API/ --no-restore
+      run: dotnet build ./src/services/GS.Catalog.API/ --configuration Release --no-restore
     - name: Build Client.API
-      run: dotnet build ./src/services/GS.Client.API/ --no-restore
+      run: dotnet build ./src/services/GS.Client.API/ --configuration Release --no-restore
     - name: Build Order.API
-      run: dotnet build ./src/services/GS.Order.API/ --no-restore
+      run: dotnet build ./src/services/GS.Order.API/ --configuration Release --no-restore
     - name: Build Payment.API
-      run: dotnet build ./src/services/GS.Payment.API/ --no-restore
+      run: dotnet build ./src/services/GS.Payment.API/ --configuration Release --no-restore
     - name: Build Shopping.API
-      run: dotnet build ./src/services/GS.Shopping.API/ --no-restore
+      run: dotnet build ./src/services/GS.Shopping.API/ --configuration Release --no-restore
     - name: Build WebApp.MVC
-      run: dotnet build ./src/web/GS.WebApp.MVC/ --no-restore
+      run: dotnet build ./src/web/GS.WebApp.MVC/ --configuration Release --no-restore
     # name: Test
     # run: dotnet test --no-build --verbosity normal
