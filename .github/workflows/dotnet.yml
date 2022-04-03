@@ -19,7 +19,31 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore Authentication.API dependencies
       run: dotnet restore ./src/services/GS.Authentication.API/
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    - name: Restore Catalog.API dependencies
+      run: dotnet restore ./src/services/GS.Catalog.API/
+    - name: Restore Client.API dependencies
+      run: dotnet restore ./src/services/GS.Client.API/
+    - name: Restore Order.API dependencies
+      run: dotnet restore ./src/services/GS.Order.API/
+    - name: Restore Payment.API dependencies
+      run: dotnet restore ./src/services/GS.Payment.API/
+    - name: Restore Shopping.API dependencies
+      run: dotnet restore ./src/services/GS.Shopping.API/
+    - name: Restore WebApp.MVC dependencies
+      run: dotnet restore ./src/web/GS.WebApp.MVC/
+    - name: Build Authentication.API
+      run: dotnet build ./src/services/GS.Authentication.API/ --no-restore
+    - name: Build Client.API
+      run: dotnet build ./src/services/GS.Client.API/ --no-restore
+    - name: Build Order.API
+      run: dotnet build ./src/services/GS.Order.API/ --no-restore
+    - name: Build Payment.API
+      run: dotnet build ./src/services/GS.Payment.API/ --no-restore
+    - name: Build Shopping.API
+      run: dotnet build ./src/services/GS.Shopping.API/ --no-restore
+    - name: Build Authentication.API
+      run: dotnet build ./src/services/GS.Authentication.API/ --no-restore
+    - name: Build WebApp.MVC
+      run: dotnet build ./src/web/GS.WebApp.MVC/ --no-restore
+    # name: Test
+    # run: dotnet test --no-build --verbosity normal
